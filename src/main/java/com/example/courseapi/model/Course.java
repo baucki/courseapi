@@ -13,16 +13,19 @@ public class Course implements Serializable {
     private String title;
     private String description;
     private String instructor;
-    private String url;
+
+    private String imageUrl;
+    private String courseUrl;
 
     public Course() {}
 
-    public Course(long id, String title, String description, String instructor, String url) {
+    public Course(long id, String title, String description, String instructor, String imageUrl, String courseUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.instructor = instructor;
-        this.url = url;
+        this.imageUrl = imageUrl;
+        this.courseUrl = courseUrl;
     }
 
     public long getId() {
@@ -57,12 +60,20 @@ public class Course implements Serializable {
         this.instructor = instructor;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCourseUrl() {
+        return courseUrl;
+    }
+
+    public void setCourseUrl(String courseUrl) {
+        this.courseUrl = courseUrl;
     }
 
     @Override
@@ -72,7 +83,8 @@ public class Course implements Serializable {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", instructor='" + instructor + '\'' +
-                ", url='" + url + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", courseUrl='" + courseUrl + '\'' +
                 '}';
     }
 }
