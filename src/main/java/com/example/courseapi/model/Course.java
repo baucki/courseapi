@@ -13,17 +13,19 @@ public class Course implements Serializable {
     private long id;
     private String title;
     private String description;
-    private String location;
+    private String address;
+    private String city;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String instructor;
     private String imageUrl;
     public Course() {}
-    public Course(long id, String title, String description, String location, LocalDateTime startTime, LocalDateTime endTime, String instructor, String imageUrl) {
+    public Course(long id, String title, String description, String address, String city, LocalDateTime startTime, LocalDateTime endTime, String instructor, String imageUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.location = location;
+        this.address = address;
+        this.city = city;
         this.startTime = startTime;
         this.endTime = endTime;
         this.instructor = instructor;
@@ -47,11 +49,17 @@ public class Course implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getLocation() {
-        return location;
+    public String getAddress() {
+        return address;
     }
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
     }
     public LocalDateTime getStartTime() {
         return startTime;
@@ -83,7 +91,8 @@ public class Course implements Serializable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
                 ", start Time='" + startTime + '\'' +
                 ", end Time='" + endTime + '\'' +
                 ", instructor='" + instructor + '\'' +
