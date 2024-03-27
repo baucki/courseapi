@@ -12,20 +12,16 @@ import java.util.List;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
-
     @Autowired
     public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
-
     public Course addCourse(Course course) {
         return courseRepository.save(course);
     }
-
     public List<Course> findAllCourses() {
         return courseRepository.findAll();
     }
-
     public Course findCourseById(Long id) {
         return courseRepository.findCourseById(id)
                 .orElseThrow(() -> new CourseNotFoundException("Course by id" + id + "was not found"));

@@ -29,6 +29,7 @@ public class Course implements Serializable {
         this.instructor = instructor;
         this.imageUrl = imageUrl;
     }
+
     public long getId() {
         return id;
     }

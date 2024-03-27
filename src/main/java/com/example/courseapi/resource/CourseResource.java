@@ -12,23 +12,19 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseResource {
     private final CourseService courseService;
-
     public CourseResource(CourseService courseService) {
         this.courseService = courseService;
     }
-
     @GetMapping("/all")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> courses = courseService.findAllCourses();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
-
     @GetMapping("/find/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable("id") Long id) {
         Course course = courseService.findCourseById(id);
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
-
     @PostMapping("/add")
     public ResponseEntity<Course> addCourse(@RequestBody Course course) {
         Course newCourse = courseService.addCourse(course);
