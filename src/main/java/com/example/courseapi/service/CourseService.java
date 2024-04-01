@@ -3,7 +3,6 @@ package com.example.courseapi.service;
 import com.example.courseapi.exception.CourseNotFoundException;
 import com.example.courseapi.model.Course;
 import com.example.courseapi.repository.CourseRepository;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

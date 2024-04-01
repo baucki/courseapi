@@ -4,9 +4,7 @@ import com.example.courseapi.model.Speaker;
 import com.example.courseapi.service.SpeakerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,10 @@ public class SpeakerResource {
     public ResponseEntity<List<Speaker>> getAllSpeakers() {
          List<Speaker> speakers =  speakerService.findAllSpeakers();
          return new ResponseEntity<>(speakers, HttpStatus.OK);
+    }
+    @PostMapping("/add")
+    public ResponseEntity<Speaker> addSpeaker(@RequestBody Speaker speaker) {
+        Speaker newSpeaker = speakerService.addSpeaker(speaker);
+        return new ResponseEntity<>(newSpeaker, HttpStatus.OK);
     }
 }
