@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class Course implements Serializable {
@@ -16,18 +17,16 @@ public class Course implements Serializable {
     private String location;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private String instructor;
-    private String imageUrl;
+    @ManyToMany
+    private Set<Speaker> speakers;
     public Course() {}
-    public Course(long id, String title, String description, String location, LocalDateTime startTime, LocalDateTime endTime, String instructor, String imageUrl) {
+    public Course(long id, String title, String description, String location, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.location = location;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.instructor = instructor;
-        this.imageUrl = imageUrl;
     }
 
     public long getId() {
@@ -66,17 +65,11 @@ public class Course implements Serializable {
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
-    public String getInstructor() {
-        return instructor;
+    public Set<Speaker> getSpeakers() {
+        return speakers;
     }
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
-    }
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setSpeakers(Set<Speaker> speakers) {
+        this.speakers = speakers;
     }
     @Override
     public String toString() {
@@ -87,8 +80,6 @@ public class Course implements Serializable {
                 ", location='" + location + '\'' +
                 ", start Time='" + startTime + '\'' +
                 ", end Time='" + endTime + '\'' +
-                ", instructor='" + instructor + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
