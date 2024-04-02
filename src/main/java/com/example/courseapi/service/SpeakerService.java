@@ -23,12 +23,8 @@ public class SpeakerService {
     public List<Speaker> findAllSpeakers() {
         return this.speakerRepository.findAll();
     }
-
     public Speaker findSpeakerById(Long id) {
         return this.speakerRepository.findSpeakerById(id)
                 .orElseThrow(() -> new SpeakerNotFoundException("Speaker with id: " + id + " was not found"));
     }
-
-
-
 }

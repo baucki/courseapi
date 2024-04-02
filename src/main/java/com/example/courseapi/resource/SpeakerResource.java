@@ -21,6 +21,13 @@ public class SpeakerResource {
          List<Speaker> speakers =  speakerService.findAllSpeakers();
          return new ResponseEntity<>(speakers, HttpStatus.OK);
     }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Speaker> getSpeakerById(@PathVariable("id") Long id) {
+        Speaker speaker = speakerService.findSpeakerById(id);
+        return new ResponseEntity<>(speaker, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Speaker> addSpeaker(@RequestBody Speaker speaker) {
         Speaker newSpeaker = speakerService.addSpeaker(speaker);
