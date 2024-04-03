@@ -22,12 +22,12 @@ public class UserService {
     public User addUser(User user) {
         return this.userRepository.save(user);
     }
-    public User login(User requestUser) {
+    public boolean login(User requestUser) {
         User user = this.userRepository.findUserByUsername(requestUser.getUsername())
                 .orElseThrow(() -> new UserNotFoundException("User with the username: " + requestUser.getUsername() + " was not found" ));
         if (requestUser.getPassword().equals(user.getPassword())) {
-            return user;
+            return true;
         }
-        return new User();
+        return false;
     }
 }

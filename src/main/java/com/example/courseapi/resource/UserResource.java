@@ -1,5 +1,6 @@
 package com.example.courseapi.resource;
 
+import com.example.courseapi.exception.UserNotFoundException;
 import com.example.courseapi.model.User;
 import com.example.courseapi.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,13 @@ public class UserResource {
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
     @PostMapping("/login")
-    public ResponseEntity<User> getUserByLogin(@RequestBody User requestUser) {
-        User user = userService.login(requestUser);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<Boolean> getUserByLogin(@RequestBody User requestUser) {
+        boolean flag;
+        try {
+            flag = userService.login(requestUser);
+        } catch (UserNotFoundException e) {
+            flag = false;
+        }
+        return new ResponseEntity<>(flag, HttpStatus.OK);
     }
 }
