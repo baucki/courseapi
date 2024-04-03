@@ -12,7 +12,6 @@ import java.util.List;
 public class SpeakerService {
 
     private final SpeakerRepository speakerRepository;
-
     @Autowired
     public SpeakerService(SpeakerRepository speakerRepository) {
         this.speakerRepository = speakerRepository;
