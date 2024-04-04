@@ -23,18 +23,18 @@ public class UserResource {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User newUser = userService.addUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
+    public ResponseEntity<Boolean> addUser(@RequestBody User user) {
+        boolean response = userService.addUser(user);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/login")
     public ResponseEntity<Boolean> getUserByLogin(@RequestBody User requestUser) {
-        boolean flag;
+        boolean response;
         try {
-            flag = userService.login(requestUser);
+            response = userService.login(requestUser);
         } catch (UserNotFoundException e) {
-            flag = false;
+            response = false;
         }
-        return new ResponseEntity<>(flag, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
