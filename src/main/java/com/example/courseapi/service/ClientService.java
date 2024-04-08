@@ -1,6 +1,6 @@
 package com.example.courseapi.service;
 
-import com.example.courseapi.model.Client;
+import com.example.courseapi.model.entities.Client;
 import com.example.courseapi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

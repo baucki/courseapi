@@ -1,7 +1,6 @@
-package com.example.courseapi.model;
+package com.example.courseapi.model.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
 
 import java.io.Serializable;
 

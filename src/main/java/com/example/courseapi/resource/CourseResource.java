@@ -1,6 +1,6 @@
 package com.example.courseapi.resource;
 
-import com.example.courseapi.model.Course;
+import com.example.courseapi.model.entities.Course;
 import com.example.courseapi.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

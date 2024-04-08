@@ -1,6 +1,6 @@
 package com.example.courseapi.repository;
 
-import com.example.courseapi.model.User;
+import com.example.courseapi.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

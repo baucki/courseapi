@@ -1,6 +1,6 @@
 package com.example.courseapi.resource;
 
-import com.example.courseapi.model.Speaker;
+import com.example.courseapi.model.entities.Speaker;
 import com.example.courseapi.service.SpeakerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

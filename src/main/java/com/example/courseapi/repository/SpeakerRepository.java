@@ -1,6 +1,6 @@
 package com.example.courseapi.repository;
 
-import com.example.courseapi.model.Speaker;
+import com.example.courseapi.model.entities.Speaker;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

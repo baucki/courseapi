@@ -1,7 +1,7 @@
 package com.example.courseapi.service;
 
 import com.example.courseapi.exception.SpeakerNotFoundException;
-import com.example.courseapi.model.Speaker;
+import com.example.courseapi.model.entities.Speaker;
 import com.example.courseapi.repository.SpeakerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

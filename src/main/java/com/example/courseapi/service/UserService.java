@@ -1,7 +1,11 @@
 package com.example.courseapi.service;
 
 import com.example.courseapi.exception.UserNotFoundException;
-import com.example.courseapi.model.User;
+import com.example.courseapi.model.entities.User;
+import com.example.courseapi.model.requests.ChangePasswordRequest;
+import com.example.courseapi.model.requests.ChangePersonalInformationRequest;
+import com.example.courseapi.model.requests.ChangeUsernameRequest;
+import com.example.courseapi.model.requests.LoginRequest;
 import com.example.courseapi.repository.UserRepository;
 import com.example.courseapi.utils.HashHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +34,50 @@ public class UserService {
         }
         return false;
     }
-    public boolean login(User requestUser) {
-        User user = this.userRepository.findUserByUsername(requestUser.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("User with the username: " + requestUser.getUsername() + " was not found" ));
-        String requestPassword = HashHandler.sha256(requestUser.getPassword());
+    public boolean login(LoginRequest request) {
+        User user = this.userRepository.findUserByUsername(request.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("User with the username: " + request.getUsername() + " was not found" ));
+        String requestPassword = HashHandler.sha256(request.getPassword());
         return requestPassword != null && requestPassword.equals(user.getPassword());
+    }
+    public boolean changeUsername(ChangeUsernameRequest request) {
+        User oldUser = this.userRepository.findUserByUsername(request.getOldUsername())
+                .orElse(null);
+        if (oldUser != null) {
+            User newUser = this.userRepository.findUserByUsername(request.getNewUsername())
+                    .orElse(null);
+            oldUser.setUsername(request.getNewUsername());
+            this.userRepository.save(oldUser);
+            return newUser == null;
+        }
+        return false;
+    }
+
+    public boolean changePassword(ChangePasswordRequest request) {
+        User user = this.userRepository.findUserByUsername(request.getUsername())
+                .orElse(null);
+        if (user != null) {
+            user.setPassword(HashHandler.sha256(request.getNewPassword()));
+            this.userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean changePersonalInformation(ChangePersonalInformationRequest request) {
+        User user = this.userRepository.findUserByUsername(request.getUsername())
+                .orElse(null);
+        if (user != null) {
+            user.setName(request.getName());
+            user.setLastName(request.getLastName());
+            user.setProfession(request.getProfession());
+            user.setEmail(request.getEmail());
+            user.setPhone(request.getPhone());
+            user.setCountry(request.getCountry());
+            user.setCity(request.getCity());
+            this.userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }

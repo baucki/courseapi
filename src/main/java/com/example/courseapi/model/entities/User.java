@@ -1,4 +1,4 @@
-package com.example.courseapi.model;
+package com.example.courseapi.model.entities;
 
 import jakarta.persistence.*;
 

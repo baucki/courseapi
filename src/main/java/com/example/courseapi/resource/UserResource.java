@@ -1,7 +1,11 @@
 package com.example.courseapi.resource;
 
 import com.example.courseapi.exception.UserNotFoundException;
-import com.example.courseapi.model.User;
+import com.example.courseapi.model.entities.User;
+import com.example.courseapi.model.requests.ChangePasswordRequest;
+import com.example.courseapi.model.requests.ChangePersonalInformationRequest;
+import com.example.courseapi.model.requests.ChangeUsernameRequest;
+import com.example.courseapi.model.requests.LoginRequest;
 import com.example.courseapi.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +32,40 @@ public class UserResource {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/login")
-    public ResponseEntity<Boolean> getUserByLogin(@RequestBody User requestUser) {
+    public ResponseEntity<Boolean> login(@RequestBody LoginRequest request) {
         boolean response;
         try {
-            response = userService.login(requestUser);
+            response = userService.login(request);
+        } catch (UserNotFoundException e) {
+            response = false;
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PostMapping("/change-username")
+    public ResponseEntity<Boolean> changeUsername(@RequestBody ChangeUsernameRequest request) {
+        boolean response;
+        try {
+            response = userService.changeUsername(request);
+        } catch (UserNotFoundException e) {
+            response = false;
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<Boolean> changePassword(@RequestBody ChangePasswordRequest request) {
+        boolean response;
+        try {
+            response = userService.changePassword(request);
+        } catch (UserNotFoundException e) {
+            response = false;
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PostMapping("/change-personal-information")
+    public ResponseEntity<Boolean> changePersonalInformation(@RequestBody ChangePersonalInformationRequest request) {
+        boolean response;
+        try {
+            response = userService.changePersonalInformation(request);
         } catch (UserNotFoundException e) {
             response = false;
         }

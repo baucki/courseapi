@@ -1,7 +1,7 @@
 package com.example.courseapi.service;
 
 import com.example.courseapi.exception.FeedbackNotFoundException;
-import com.example.courseapi.model.Feedback;
+import com.example.courseapi.model.entities.Feedback;
 import com.example.courseapi.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
