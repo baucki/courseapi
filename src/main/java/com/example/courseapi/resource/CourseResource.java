@@ -2,6 +2,7 @@ package com.example.courseapi.resource;
 
 import com.example.courseapi.model.entities.Course;
 import com.example.courseapi.service.CourseService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,10 @@ public class CourseResource {
         this.courseService = courseService;
     }
     @GetMapping("/all")
-    public ResponseEntity<List<Course>> getAllCourses() {
+    public ResponseEntity<List<Course>> getAllCourses(@RequestHeader HttpHeaders headers) {
+        headers.forEach((key, value) -> {
+            System.out.println(String.format("Header '%s' = %s", key, value));
+        });
         List<Course> courses = courseService.findAllCourses();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }

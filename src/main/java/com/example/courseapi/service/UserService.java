@@ -1,6 +1,11 @@
 package com.example.courseapi.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.courseapi.exception.UserNotFoundException;
+import com.example.courseapi.model.Token;
 import com.example.courseapi.model.entities.User;
 import com.example.courseapi.model.requests.ChangePasswordRequest;
 import com.example.courseapi.model.requests.ChangePersonalInformationRequest;
@@ -8,8 +13,14 @@ import com.example.courseapi.model.requests.ChangeUsernameRequest;
 import com.example.courseapi.model.requests.LoginRequest;
 import com.example.courseapi.repository.UserRepository;
 import com.example.courseapi.utils.HashHandler;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class UserService {
@@ -34,12 +45,41 @@ public class UserService {
         }
         return false;
     }
-    public boolean login(LoginRequest request) {
+    public Token login(LoginRequest request) {
         User user = this.userRepository.findUserByUsername(request.getUsername())
                 .orElseThrow(() -> new UserNotFoundException("User with the username: " + request.getUsername() + " was not found" ));
         String requestPassword = HashHandler.sha256(request.getPassword());
-        return requestPassword != null && requestPassword.equals(user.getPassword());
+        if (requestPassword != null && requestPassword.equals(user.getPassword())) {
+
+            Date issuedAt = new Date();
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+
+            return new Token(JWT.create()
+                    .withIssuedAt(issuedAt)
+                    .withClaim("username", user.getUsername())
+                    .withClaim("type", user.getType())
+                    .sign(algorithm));
+        }
+        return new Token("");
     }
+
+    public boolean isAuthorized(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT jwt = verifier.verify(token);
+            System.out.println(token);
+            String username = jwt.getClaim("username").asString();
+            System.out.println(username);
+            User user = userRepository.findUserByUsername(username)
+                    .orElse(null);
+
+            return user != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean changeUsername(ChangeUsernameRequest request) {
         User oldUser = this.userRepository.findUserByUsername(request.getOldUsername())
                 .orElse(null);
@@ -80,4 +120,6 @@ public class UserService {
         }
         return false;
     }
+
+
 }

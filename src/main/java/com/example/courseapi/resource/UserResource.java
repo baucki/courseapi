@@ -1,6 +1,7 @@
 package com.example.courseapi.resource;
 
 import com.example.courseapi.exception.UserNotFoundException;
+import com.example.courseapi.model.Token;
 import com.example.courseapi.model.entities.User;
 import com.example.courseapi.model.requests.ChangePasswordRequest;
 import com.example.courseapi.model.requests.ChangePersonalInformationRequest;
@@ -32,12 +33,12 @@ public class UserResource {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody LoginRequest request) {
-        boolean response;
+    public ResponseEntity<Token> login(@RequestBody LoginRequest request) {
+        Token response;
         try {
             response = userService.login(request);
         } catch (UserNotFoundException e) {
-            response = false;
+            response = new Token("");
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

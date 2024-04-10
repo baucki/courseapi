@@ -21,8 +21,9 @@ public class User implements Serializable {
     private String city;
     private String profession;
     private String phone;
+    private String type;
     public User(){}
-    public User(String username, String password, String name, String lastName, String imagePath,String email, String country, String city, String profession, String phone) {
+    public User(String username, String password, String name, String lastName, String imagePath,String email, String country, String city, String profession, String phone, String type) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -33,6 +34,7 @@ public class User implements Serializable {
         this.city = city;
         this.profession = profession;
         this.phone = phone;
+        this.type = type;
     }
 
     public long getId() {
@@ -100,6 +102,12 @@ public class User implements Serializable {
     }
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 }
 
