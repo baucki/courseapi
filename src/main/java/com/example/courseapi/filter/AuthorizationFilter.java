@@ -43,7 +43,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
         String[] pathsRequiringAuthorization = {
                 "/users/find/"
-                ,"/users/add"
                 ,"/users/change-username"
                 ,"/users/change-password"
                 ,"/users/change-personal-information"

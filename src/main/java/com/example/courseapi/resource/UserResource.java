@@ -28,8 +28,8 @@ public class UserResource {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PostMapping("/add")
-    public ResponseEntity<Boolean> addUser(@RequestBody User user) {
-        boolean response = userService.addUser(user);
+    public ResponseEntity<Token> addUser(@RequestBody User user) {
+        Token response = userService.addUser(user);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/login")

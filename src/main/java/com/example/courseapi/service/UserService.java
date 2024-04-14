@@ -35,15 +35,22 @@ public class UserService {
         return this.userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("User with the username: " + username + " was not found" ));
     }
-    public boolean addUser(User requestUser) {
+    public Token addUser(User requestUser) {
         User user = this.userRepository.findUserByUsername(requestUser.getUsername())
                 .orElse(null);
         if (user == null) {
             requestUser.setPassword(HashHandler.sha256(requestUser.getPassword()));
             this.userRepository.save(requestUser);
-            return true;
+            Date issuedAt = new Date();
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+
+            return new Token(JWT.create()
+                    .withIssuedAt(issuedAt)
+                    .withClaim("username", requestUser.getUsername())
+                    .withClaim("type", requestUser.getType())
+                    .sign(algorithm));
         }
-        return false;
+        return new Token("");
     }
     public Token login(LoginRequest request) {
         User user = this.userRepository.findUserByUsername(request.getUsername())
@@ -67,10 +74,10 @@ public class UserService {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm).build();
+
             DecodedJWT jwt = verifier.verify(token);
-            System.out.println(token);
+
             String username = jwt.getClaim("username").asString();
-            System.out.println(username);
             User user = userRepository.findUserByUsername(username)
                     .orElse(null);
 
