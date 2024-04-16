@@ -115,6 +115,7 @@ public class UserService {
         User user = this.userRepository.findUserByUsername(request.getUsername())
                 .orElse(null);
         if (user != null) {
+            user.setImagePath(request.getImagePath());
             user.setName(request.getName());
             user.setLastName(request.getLastName());
             user.setProfession(request.getProfession());

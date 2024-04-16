@@ -2,6 +2,7 @@ package com.example.courseapi.model.requests;
 
 public class ChangePersonalInformationRequest {
 
+    private String imagePath;
     private String username;
     private String name;
     private String lastName;
@@ -11,7 +12,8 @@ public class ChangePersonalInformationRequest {
     private String phone;
     private String profession;
     public ChangePersonalInformationRequest() {}
-    public ChangePersonalInformationRequest(String username, String name, String lastName, String email, String country, String city, String phone, String profession) {
+    public ChangePersonalInformationRequest(String imagePath, String username, String name, String lastName, String email, String country, String city, String phone, String profession) {
+        this.imagePath = imagePath;
         this.username = username;
         this.name = name;
         this.lastName = lastName;
@@ -20,6 +22,12 @@ public class ChangePersonalInformationRequest {
         this.city = city;
         this.phone = phone;
         this.profession = profession;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
     public void setUsername(String username) {
         this.username = username;
