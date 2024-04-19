@@ -33,7 +33,7 @@ public class UserService {
     }
     public User findUserByUsername(String username) {
         return this.userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("User with the username: " + username + " was not found" ));
+                .orElse(null);
     }
     public Token addUser(User requestUser) {
         User user = this.userRepository.findUserByUsername(requestUser.getUsername())
